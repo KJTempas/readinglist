@@ -60,11 +60,14 @@ def search_book():
 def change_read():
 
     book_id = ui.get_book_id()
-    book = store.get_book_by_id(book_id)  
-    new_read = ui.get_read_value()     
-    book.read = new_read 
-    book.save()
+    book = store.get_book_by_id(book_id) 
     
+    if book: # book will be None if it's not found in db
+        new_read = ui.get_read_value()     
+        book.read = new_read 
+        book.save()
+    else:
+        ui.message('Error: Book Not Found')
 
 def quit_program():
     ui.message('Thanks and bye!')
