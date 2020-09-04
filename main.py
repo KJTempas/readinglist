@@ -33,8 +33,11 @@ def create_menu():
 
 
 def add_book():
-    new_book = ui.get_book_info()
-    new_book.save()
+    try:
+        new_book = ui.get_book_info()
+        new_book.save()
+    except Exception as e:
+        ui.message('Error: Book Already on File')
     
 
 def show_read_books():
