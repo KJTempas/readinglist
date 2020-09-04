@@ -75,7 +75,7 @@ def delete_book():
         
         book.delete()
     except Exception as e:
-        print('Error: Book Not Found')
+        ui.message('Error: Book Not Found')
 
 def quit_program():
     ui.message('Thanks and bye!')
