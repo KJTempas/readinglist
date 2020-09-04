@@ -14,7 +14,7 @@ def main():
         choice = ui.display_menu_get_choice(menu)
         action = menu.get_action(choice)
         action()
-        if choice.lower() == 'q':
+        if choice.upper() == 'Q':
             break
 
 
