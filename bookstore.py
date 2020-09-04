@@ -18,6 +18,8 @@ class Book:
         self.bookstore = BookStore()
 
 
+    """ If id is not None, i.e. if Book has already been created, calls the _update_book() function in Bookstore.
+    If id is None, i.e. if it's a new Book, calls the _add_book() function in Bookstore """
     def save(self):
         if self.id:
             self.bookstore._update_book(self)
