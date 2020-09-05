@@ -62,12 +62,15 @@ def search_book():
 
 
 def change_read():
-
     book_id = ui.get_book_id()
     book = store.get_book_by_id(book_id)  
     new_read = ui.get_read_value()     
     book.read = new_read 
     book.save()
+    if book.read:
+        ui.message(f'You have read {book.title} by {book.author}')
+    else:
+        ui.message(f'You have not read {book.title} by {book.author}')
     
     
 def delete_book():
