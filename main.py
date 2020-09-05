@@ -14,7 +14,7 @@ def main():
         choice = ui.display_menu_get_choice(menu)
         action = menu.get_action(choice)
         action()
-        if choice.lower() == 'q':
+        if choice.upper() == 'Q':
             break
 
 
@@ -33,8 +33,11 @@ def create_menu():
 
 
 def add_book():
-    new_book = ui.get_book_info()
-    new_book.save()
+    try:
+        new_book = ui.get_book_info()
+        new_book.save()
+    except Exception as e:
+        ui.message('Error: Book Already on File')
     
 
 def show_read_books():
@@ -59,9 +62,16 @@ def search_book():
 
 
 def change_read():
-
     book_id = ui.get_book_id()
-    book = store.get_book_by_id(book_id) 
+    book = store.get_book_by_id(book_id)  
+    new_read = ui.get_read_value()     
+    book.read = new_read 
+    book.save()
+    if book.read:
+        ui.message(f'You have read {book.title} by {book.author}')
+    else:
+        ui.message(f'You have not read {book.title} by {book.author}')
+
     
     if book: # book will be None if it's not found in db
         new_read = ui.get_read_value()     
