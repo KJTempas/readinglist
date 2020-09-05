@@ -184,20 +184,23 @@ class BookStore:
             :param id the ID to search for
             :returns the book, if found, or None if book not found.
             """
-         
-            get_book_by_id_sql = 'SELECT rowid, * FROM books WHERE rowid = ?'
+            
+            try:
+                get_book_by_id_sql = 'SELECT rowid, * FROM books WHERE rowid = ?'
 
-            con = sqlite3.connect(db) 
-            con.row_factory = sqlite3.Row  # This row_factory allows access to data by row name 
-            rows = con.execute(get_book_by_id_sql, (id,) )
-            book_data = rows.fetchone()  # Get first result 
-            
-            if book_data:
-                book = Book(book_data['title'], book_data['author'], book_data['read'], book_data['rowid'])
-                    
-            con.close()            
-            
-            return book 
+                con = sqlite3.connect(db) 
+                con.row_factory = sqlite3.Row  # This row_factory allows access to data by row name 
+                rows = con.execute(get_book_by_id_sql, (id,) )
+                book_data = rows.fetchone()  # Get first result 
+                
+                if book_data:
+                    book = Book(book_data['title'], book_data['author'], book_data['read'], book_data['rowid'])
+                        
+                con.close()            
+                
+                return book 
+            except UnboundLocalError as e:
+                return None
 
 
         def book_search(self, term):

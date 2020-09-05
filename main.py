@@ -71,7 +71,14 @@ def change_read():
         ui.message(f'You have read {book.title} by {book.author}')
     else:
         ui.message(f'You have not read {book.title} by {book.author}')
+
     
+    if book: # book will be None if it's not found in db
+        new_read = ui.get_read_value()     
+        book.read = new_read 
+        book.save()
+    else:
+        ui.message('Error: Book Not Found')
     
 def delete_book():
     try:
@@ -81,6 +88,7 @@ def delete_book():
         
         book.delete()
     except Exception as e:
+
         ui.message('Error: Book Not Found')
 
 def quit_program():
