@@ -64,7 +64,10 @@ def change_read():
     new_read = ui.get_read_value()     
     book.read = new_read 
     book.save()
-    ui.message(f'You have not read {book.title} by {book.author}') if book.read ==False else ui.message(f'You have read {book.title} by {book.author}')
+    if book.read:
+        ui.message(f'You have read {book.title} by {book.author}')
+    else:
+        ui.message(f'You have not read {book.title} by {book.author}')
     
     
 def delete_book():
